@@ -22,6 +22,7 @@ export interface Gig {
   boardType: BoardType;
   description: string;
   suggestedPrice: number;
+  compensation?: string;
   status: GigStatus;
   tags: string[];
   createdAt: string;

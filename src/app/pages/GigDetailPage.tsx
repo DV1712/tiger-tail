@@ -132,6 +132,15 @@ export function GigDetailPage() {
               ))}
             </div>
 
+            {/* Compensation (if present) */}
+            {gig.compensation && (
+              <div className="mb-6 p-4 rounded-lg bg-amber-50 border border-amber-200">
+                <p className="text-sm text-amber-900">
+                  <span style={{ fontWeight: 600 }}>💼 Compensation:</span> {gig.compensation}
+                </p>
+              </div>
+            )}
+
             {/* Meta */}
             <div className="flex flex-wrap gap-4 text-sm text-gray-500 mb-6 pb-6 border-b border-gray-100">
               <div className="flex items-center gap-1.5">

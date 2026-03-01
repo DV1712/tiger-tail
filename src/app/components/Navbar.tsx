@@ -23,8 +23,8 @@ export function Navbar({ onPostGig }: NavbarProps) {
       <div className="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
         {/* Logo */}
         <Link to="/feed" className="flex items-center gap-2.5 group">
-          <div className="w-8 h-8 rounded-lg bg-[#F76902] flex items-center justify-center shadow-lg shadow-orange-900/40">
-            <span className="text-white text-sm select-none">🐯</span>
+          <div className="w-8 h-8 rounded-lg bg-white flex items-center justify-center shadow-lg shadow-orange-900/40">
+            <img src="/logo.png" alt="TigerTail Logo" className="w-full h-full object-contain p-1" />
           </div>
           <span className="text-white tracking-tight hidden sm:block" style={{ fontWeight: 700, fontSize: '1.1rem' }}>
             Tiger<span className="text-[#F76902]">Tail</span>

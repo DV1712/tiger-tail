@@ -57,6 +57,15 @@ export function GigCard({ gig }: GigCardProps) {
           ))}
         </div>
 
+        {/* Compensation (if present) */}
+        {gig.compensation && (
+          <div className="mb-4 p-2.5 rounded-lg bg-amber-50 border border-amber-200">
+            <p className="text-xs text-amber-600 line-clamp-2">
+              <span style={{ fontWeight: 600 }}>Compensation:</span> {gig.compensation}
+            </p>
+          </div>
+        )}
+
         {/* Footer */}
         <div className="flex items-center justify-between pt-3 border-t border-gray-100">
           <div className="flex items-center gap-3">

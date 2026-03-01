@@ -13,4 +13,12 @@ An academic collaboration and opportunity platform for RIT students and faculty.
 
 Run `npm i` to install the dependencies.
 
+## Gemini setup (Gig Appraiser)
+
+1. Open `.env.local` in the project root.
+2. Set `VITE_GEMINI_API_KEY` to your Gemini API key.
+3. Keep `VITE_GEMINI_MODEL=gemini-2.5-flash-lite` for a low-cost/simple setup.
+
+For frontend-only local development, this works immediately with Vite. For production best practice, keep the API key on a server (for example, a Supabase Edge Function) and call Gemini from there so the key is never exposed to browsers.
+
 Run `npm run dev` to start the development server.
