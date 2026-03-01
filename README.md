@@ -1,11 +1,16 @@
+# Tiger Tail
 
-  # Build Assistance Request
+An academic collaboration and opportunity platform for RIT students and faculty. Tiger Tail combines a gig marketplace with a research hub to facilitate academic tasks, research participation, and scholarly collaboration within the RIT community.
 
-  This is a code bundle for Build Assistance Request. The original project is available at https://www.figma.com/design/fFHvmCgo7Z4Hbc4Ta6YF5y/Build-Assistance-Request.
+## Features
 
-  ## Running the code
+- **Gig Marketplace**: Post and accept academic tasks and life gigs with TigerCredits compensation
+- **Research Hub**: Find research opportunities, recruit participants, seek peer reviews, and showcase publications
+- **User Profiles**: Build reputation through completed gigs and research contributions
+- **Real-time Updates**: Stay connected with instant notifications and messaging
 
-  Run `npm i` to install the dependencies.
+## Running the code
 
-  Run `npm run dev` to start the development server.
-  
+Run `npm i` to install the dependencies.
+
+Run `npm run dev` to start the development server.
