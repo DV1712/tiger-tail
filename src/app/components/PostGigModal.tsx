@@ -27,6 +27,7 @@ export function PostGigModal({ open, onClose }: PostGigModalProps) {
   const [manualPrice, setManualPrice] = useState<number>(25);
   const [manualBoard, setManualBoard] = useState<BoardType>('ACADEMIC');
   const [fallbackMode, setFallbackMode] = useState(false);
+  const [userSuggestion, setUserSuggestion] = useState('');
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   const reset = () => {
@@ -37,6 +38,7 @@ export function PostGigModal({ open, onClose }: PostGigModalProps) {
     setManualPrice(25);
     setFallbackMode(false);
     setManualBoard('ACADEMIC');
+    setUserSuggestion('');
   };
 
   const handleClose = () => {
@@ -75,6 +77,7 @@ export function PostGigModal({ open, onClose }: PostGigModalProps) {
       suggestedPrice: price,
       tags,
       location: location.trim() || undefined,
+      compensation: userSuggestion.trim() || undefined,
     });
 
     toast.success('Gig posted! 🐯 Your request is now live on the feed.');
@@ -100,8 +103,8 @@ export function PostGigModal({ open, onClose }: PostGigModalProps) {
                   <ChevronLeft className="w-4 h-4" />
                 </button>
               )}
-              <div className="w-8 h-8 rounded-lg bg-[#F76902] flex items-center justify-center">
-                <span className="text-white text-sm">🐯</span>
+              <div className="w-8 h-8 rounded-lg bg-white border border-gray-200 flex items-center justify-center overflow-hidden">
+                <img src="/logo.png" alt="TigerTail Logo" className="w-full h-full object-contain p-1" />
               </div>
               <div>
                 <Dialog.Title className="text-sm text-gray-900" style={{ fontWeight: 700 }}>Post a Gig</Dialog.Title>
@@ -176,7 +179,7 @@ export function PostGigModal({ open, onClose }: PostGigModalProps) {
               {/* Animated tiger */}
               <div className="relative">
                 <div className="w-20 h-20 rounded-full bg-[#F76902]/10 flex items-center justify-center">
-                  <span className="text-4xl animate-bounce">🐯</span>
+                  <img src="/logo.png" alt="TigerTail Logo" className="w-12 h-12 object-contain animate-bounce" />
                 </div>
                 {/* Orbit dots */}
                 <div className="absolute inset-0 rounded-full border-2 border-dashed border-[#F76902]/30 animate-spin" style={{ animationDuration: '3s' }} />
@@ -235,6 +238,61 @@ export function PostGigModal({ open, onClose }: PostGigModalProps) {
                 <p className="text-sm text-gray-700 line-clamp-3">{description}</p>
               </div>
 
+              {/* AI Suggestion (Read-only reference) */}
+              {appraisal && (
+                <div className="rounded-xl bg-blue-50 border border-blue-200 p-4">
+                  <p className="text-xs text-blue-500 font-semibold mb-2">💡 AI Suggestion</p>
+                  <p className="text-sm text-blue-900">
+                    <span className="font-semibold">{appraisal.price} TigerCredits</span> • {appraisal.tags.join(', ')}
+                  </p>
+                  <p className="text-xs text-blue-700 mt-1">Use this value or type your own details below</p>
+                </div>
+              )}
+
+              {/* Price control */}
+              <div>
+                <div className="flex items-center justify-between mb-2">
+                  <p className="text-sm text-gray-700" style={{ fontWeight: 600 }}>TigerCredit Price</p>
+                  {manualPrice === 0 && (
+                    <span className="text-xs text-pink-500 flex items-center gap-1">
+                      ❤️ Volunteer / Mutual Aid
+                    </span>
+                  )}
+                </div>
+                <div className="flex items-center gap-4">
+                  <input
+                    type="range"
+                    min={0}
+                    max={100}
+                    value={manualPrice}
+                    onChange={e => setManualPrice(Number(e.target.value))}
+                    className="flex-1 accent-[#F76902]"
+                  />
+                  <div className="flex items-center gap-1 min-w-[70px] justify-end">
+                    <span className="text-lg">🐾</span>
+                    <span className="text-xl text-[#F76902]" style={{ fontWeight: 700 }}>{manualPrice}</span>
+                    <span className="text-sm text-gray-400">TC</span>
+                  </div>
+                </div>
+                <div className="flex justify-between text-xs text-gray-400 mt-1">
+                  <span>0 (Volunteer)</span>
+                  <span>100 TC max</span>
+                </div>
+              </div>
+
+              {/* Compensation Field - User's Own Input */}
+              <div>
+                <label className="block text-sm text-gray-700 mb-2" style={{ fontWeight: 600 }}>
+                  Compensation <span className="text-gray-400" style={{ fontWeight: 400 }}>(optional)</span>
+                </label>
+                <textarea
+                  value={userSuggestion}
+                  onChange={e => setUserSuggestion(e.target.value)}
+                  placeholder="E.g. 'Actually willing to do this for 20 TC if completed tonight' or additional requirements..."
+                  className="w-full h-20 rounded-xl border border-gray-200 bg-gray-50 px-4 py-3 text-sm text-gray-800 placeholder-gray-400 resize-none focus:outline-none focus:ring-2 focus:ring-[#F76902]/40 focus:border-[#F76902] transition-all"
+                />
+              </div>
+
               {/* AI Tags (shown only when AI succeeded) */}
               {appraisal && (
                 <div>
@@ -272,37 +330,6 @@ export function PostGigModal({ open, onClose }: PostGigModalProps) {
                 {appraisal && (
                   <p className="text-xs text-gray-400 mt-1.5 text-center">Board auto-selected by AI</p>
                 )}
-              </div>
-
-              {/* Price control */}
-              <div>
-                <div className="flex items-center justify-between mb-2">
-                  <p className="text-sm text-gray-700" style={{ fontWeight: 600 }}>TigerCredit Price</p>
-                  {manualPrice === 0 && (
-                    <span className="text-xs text-pink-500 flex items-center gap-1">
-                      ❤️ Volunteer / Mutual Aid
-                    </span>
-                  )}
-                </div>
-                <div className="flex items-center gap-4">
-                  <input
-                    type="range"
-                    min={0}
-                    max={100}
-                    value={manualPrice}
-                    onChange={e => setManualPrice(Number(e.target.value))}
-                    className="flex-1 accent-[#F76902]"
-                  />
-                  <div className="flex items-center gap-1 min-w-[70px] justify-end">
-                    <span className="text-lg">🐾</span>
-                    <span className="text-xl text-[#F76902]" style={{ fontWeight: 700 }}>{manualPrice}</span>
-                    <span className="text-sm text-gray-400">TC</span>
-                  </div>
-                </div>
-                <div className="flex justify-between text-xs text-gray-400 mt-1">
-                  <span>0 (Volunteer)</span>
-                  <span>100 TC max</span>
-                </div>
               </div>
 
               {/* Post button */}

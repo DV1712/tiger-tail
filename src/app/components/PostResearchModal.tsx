@@ -37,6 +37,8 @@ export function PostResearchModal({ open, onClose, onPublish }: PostResearchModa
   const [irbApproved, setIrbApproved] = useState(false);
   const [location, setLocation]       = useState<'IN_PERSON' | 'VIRTUAL' | 'FLEXIBLE'>('VIRTUAL');
   const [participants, setParticipants] = useState('');
+  const [registrationLink, setRegistrationLink] = useState('');
+  const [paperFile, setPaperFile]     = useState<File | null>(null);
   const [appraisal, setAppraisal]     = useState<ResearchAppraisalResult | null>(null);
   const [credits, setCredits]         = useState(30);
   const [fallback, setFallback]       = useState(false);
@@ -44,6 +46,7 @@ export function PostResearchModal({ open, onClose, onPublish }: PostResearchModa
   const reset = () => {
     setStep('compose'); setType('PARTICIPANTS'); setTitle(''); setAbstract('');
     setDepartment(''); setIrbApproved(false); setLocation('VIRTUAL'); setParticipants('');
+    setRegistrationLink(''); setPaperFile(null);
     setAppraisal(null); setCredits(30); setFallback(false);
   };
 
@@ -89,6 +92,8 @@ export function PostResearchModal({ open, onClose, onPublish }: PostResearchModa
       compensation,
       irbApproved,
       location,
+      registrationLink: type === 'PARTICIPANTS' && registrationLink.trim() ? registrationLink.trim() : undefined,
+      paperFileName: type === 'PEER_REVIEW' && paperFile ? paperFile.name : undefined,
       participantsNeeded: type === 'PARTICIPANTS' && participants ? Number(participants) : undefined,
       createdAt: new Date().toISOString(),
     };
@@ -252,6 +257,61 @@ export function PostResearchModal({ open, onClose, onPublish }: PostResearchModa
                     placeholder="e.g. 20"
                     className="w-full rounded-xl border border-gray-200 bg-gray-50 px-4 py-2.5 text-sm text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#F76902]/40 focus:border-[#F76902] transition-all"
                   />
+                </div>
+              )}
+
+              {/* Registration Link (only for PARTICIPANTS type) */}
+              {type === 'PARTICIPANTS' && (
+                <div>
+                  <label className="block text-sm text-gray-700 mb-2" style={{ fontWeight: 600 }}>
+                    Registration Link <span className="text-gray-400 font-normal">(optional)</span>
+                  </label>
+                  <input
+                    type="url"
+                    value={registrationLink}
+                    onChange={e => setRegistrationLink(e.target.value)}
+                    placeholder="e.g. https://forms.gle/... or https://qualtrics.com/..."
+                    className="w-full rounded-xl border border-gray-200 bg-gray-50 px-4 py-2.5 text-sm text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#F76902]/40 focus:border-[#F76902] transition-all"
+                  />
+                  <p className="text-xs text-gray-400 mt-1">Link where participants can register for your study</p>
+                </div>
+              )}
+
+              {/* Paper Upload (only for PEER_REVIEW type) */}
+              {type === 'PEER_REVIEW' && (
+                <div>
+                  <label className="block text-sm text-gray-700 mb-2" style={{ fontWeight: 600 }}>
+                    Upload Paper <span className="text-gray-400 font-normal">(optional)</span>
+                  </label>
+                  <div className="relative">
+                    <input
+                      type="file"
+                      accept=".pdf,.doc,.docx"
+                      onChange={e => setPaperFile(e.target.files?.[0] || null)}
+                      className="hidden"
+                      id="paper-upload"
+                    />
+                    <label
+                      htmlFor="paper-upload"
+                      className="w-full flex items-center justify-center gap-2 px-4 py-3 rounded-xl border-2 border-dashed border-gray-300 bg-gray-50 hover:bg-gray-100 hover:border-gray-400 cursor-pointer transition-all"
+                    >
+                      <span className="text-xl">📄</span>
+                      <span className="text-sm text-gray-600">
+                        {paperFile ? paperFile.name : 'Choose PDF or Word document'}
+                      </span>
+                    </label>
+                  </div>
+                  {paperFile && (
+                    <div className="flex items-center gap-2 mt-2">
+                      <span className="text-xs text-emerald-600">✓ File selected: {paperFile.name}</span>
+                      <button
+                        onClick={() => setPaperFile(null)}
+                        className="text-xs text-red-500 hover:text-red-700"
+                      >
+                        Remove
+                      </button>
+                    </div>
+                  )}
                 </div>
               )}
 
