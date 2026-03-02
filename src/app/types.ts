@@ -58,6 +58,8 @@ export interface ResearchRequest {
   irbApproved: boolean;
   location: ResearchLocation;
   participantsNeeded?: number;
+  registrationLink?: string;  // For PARTICIPANTS type
+  paperFileName?: string;      // For PEER_REVIEW type
   createdAt: string;
   // Publication-specific
   aiSummary?: string;

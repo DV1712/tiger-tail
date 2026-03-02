@@ -159,6 +159,32 @@ export function ResearchCard({ request, onAction }: ResearchCardProps) {
           <CompensationBadge comp={request.compensation} />
         </div>
 
+        {/* Registration Link (for PARTICIPANTS) */}
+        {request.registrationLink && (
+          <div className="mb-3 p-2.5 rounded-lg bg-violet-50 border border-violet-200">
+            <a
+              href={request.registrationLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-1.5 text-xs text-violet-700 hover:text-violet-900 hover:underline"
+            >
+              <ExternalLink className="w-3 h-3" />
+              <span style={{ fontWeight: 600 }}>Register for Study</span>
+            </a>
+          </div>
+        )}
+
+        {/* Paper File (for PEER_REVIEW) */}
+        {request.paperFileName && (
+          <div className="mb-3 p-2.5 rounded-lg bg-blue-50 border border-blue-200">
+            <div className="flex items-center gap-1.5 text-xs text-blue-700">
+              <span>📄</span>
+              <span style={{ fontWeight: 600 }}>Paper attached:</span>
+              <span className="truncate">{request.paperFileName}</span>
+            </div>
+          </div>
+        )}
+
         {/* Footer: researcher info + action */}
         <div className="pt-3 border-t border-gray-100 flex items-center justify-between gap-3">
           <div className="flex items-center gap-2 min-w-0">
