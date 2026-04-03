@@ -1,10 +1,10 @@
 # Tiger Tail
 
-An academic collaboration and opportunity platform for RIT students and faculty. Tiger Tail combines a gig marketplace with a research hub to facilitate academic tasks, research participation, and scholarly collaboration within the RIT community.
+An academic collaboration and opportunity platform for RIT students and faculty and community. Tiger Tail combines a gig marketplace that allows everyone to request and offer any kind of help,  and a research hub to facilitate academic tasks, research participation, and scholarly collaboration within the RIT community.
 
 ## Features
 
-- **Gig Marketplace**: Post and accept academic tasks and life gigs with TigerCredits compensation
+- **Gig Marketplace**: Post and accept academic tasks and life gigs with TigerCredits compensation (or any mutually agreed compensation)
 - **Research Hub**: Find research opportunities, recruit participants, seek peer reviews, and showcase publications
 - **User Profiles**: Build reputation through completed gigs and research contributions
 - **Real-time Updates**: Stay connected with instant notifications and messaging
